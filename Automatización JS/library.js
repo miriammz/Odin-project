@@ -3,9 +3,9 @@ function Book (title, author, numPages, isRead) {
     this.author = author;
     this.numPages = numPages;
     this.isRead = isRead;
-    this.info = function info() {
+    /*this.info = function info() {
         console.log(`${this.title} by ${this.author}, ${this.numPages} pages, ${this.isRead}`);
-    };
+    };*/
     this.id = crypto.randomUUID();
 };
 
@@ -26,7 +26,7 @@ addBookToLibrary("El juego de Ender", "Orson Scott Card", 400, "no leído todav�
 
 function titulo(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
-        console.log(myLibrary[i].title);
+        console.log(`${myLibrary[i].title} por ${myLibrary[i].author}, ${myLibrary[i].numPages} páginas, ${myLibrary[i].isRead}, id: ${myLibrary[i].id}`);
     }
 };
 
