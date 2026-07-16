@@ -24,10 +24,10 @@ addBookToLibrary("Harry Potter", "J.K. Rowling", 300, "leído");
 addBookToLibrary("El triángulo de hielo", "Marcos Nieto", 520, "leído");
 addBookToLibrary("El juego de Ender", "Orson Scott Card", 400, "no leído todavía");
 
-function titulo(myLibrary) {
+function libro(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
         console.log(`${myLibrary[i].title} por ${myLibrary[i].author}, ${myLibrary[i].numPages} páginas, ${myLibrary[i].isRead}, id: ${myLibrary[i].id}`);
     }
 };
 
-titulo(myLibrary);
+libro(myLibrary);
