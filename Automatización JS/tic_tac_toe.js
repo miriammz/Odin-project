@@ -1,4 +1,4 @@
-const Gameboard = (() => {
+const gameboard = (() => {
     let board = ["", "", "", "", "", "", "", "", ""];
     const markCell = (index, mark) => {
         let result;
@@ -10,13 +10,37 @@ const Gameboard = (() => {
         }
         return result;
     };
-    const getGameboard = () => board;
-    return {markCell, getGameboard};
+    const getBoard = () => board;
+    return {markCell, getBoard};
 })();
 
-const marked = Gameboard.markCell(0, "X");
+const controller = (() => {
+    let combinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    const gameOver = (board) => {
+        for (let i = 0; i < combinations.length; i++) {
+            if ((board[combinations[i][0]] === "X" && board[combinations[i][1]] === "X" && board[combinations[i][2]] === "X") || (board[combinations[i][0]] === "O" && board[combinations[i][1]] === "O" && board[combinations[i][2]] === "O")) {
+                return true;
+            };
+        };
+        return false;
+    };
+    return {gameOver};
+})();
+
+const marked = gameboard.markCell(0, "X");
 if (marked === true) {
-    Gameboard.getGameboard();
+    gameboard.getBoard();
+    controller.gameOver();
 } else {
     console.log("Celda ya utilizada, busca otra");
 }
