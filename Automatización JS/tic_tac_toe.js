@@ -29,26 +29,36 @@ const controller = (() => {
         [0, 4, 8],
         [2, 4, 6]
     ];
+    let active = true;
 
     const gameOver = (board) => {
         for (let i = 0; i < combinations.length; i++) {
             if ((board[combinations[i][0]] === "X" && board[combinations[i][1]] === "X" && board[combinations[i][2]] === "X") || (board[combinations[i][0]] === "O" && board[combinations[i][1]] === "O" && board[combinations[i][2]] === "O")) {
+                active = false;
                 return true;
             };
         };
+        active = true;
         return false;
     };
-    return {gameOver};
+
+    const gameActive = () => active;
+    return {gameOver, gameActive};
 })();
 
 function checkGame(pos, mark) {
-    const marked = gameboard.markCell(pos, mark);
-    if (marked === true) {
-        let result = controller.gameOver(gameboard.getBoard());
-        console.log(result);
-        console.log(gameboard.getBoard())
+    const state = controller.gameActive();
+    if (state === true) {
+        const marked = gameboard.markCell(pos, mark);
+        if (marked === true) {
+            let result = controller.gameOver(gameboard.getBoard());
+            console.log(result);
+            console.log(gameboard.getBoard())
+        } else {
+            console.log("Celda ya utilizada, busca otra");
+        };
     } else {
-        console.log("Celda ya utilizada, busca otra");
+        console.log("GAME OVER");
     };
 };
 
@@ -61,6 +71,6 @@ checkGame(2, player2.marker);
 checkGame(3, player2.marker);
 checkGame(4, player2.marker);
 checkGame(5, player1.marker);
-checkGame(6, player2.marker); //aquí debería acabar el juego
+checkGame(6, player2.marker); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
 checkGame(7, player1.marker);
 checkGame(8, player1.marker);
