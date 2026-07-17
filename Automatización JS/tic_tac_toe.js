@@ -14,6 +14,10 @@ const gameboard = (() => {
     return {markCell, getBoard};
 })();
 
+const player = (marker) => {
+    return {marker};
+};
+
 const controller = (() => {
     let combinations = [
         [0, 1, 2],
@@ -37,16 +41,26 @@ const controller = (() => {
     return {gameOver};
 })();
 
-const marked = gameboard.markCell(0, "X");
-if (marked === true) {
-    gameboard.getBoard();
-    controller.gameOver();
-} else {
-    console.log("Celda ya utilizada, busca otra");
-}
+function checkGame(pos, mark) {
+    const marked = gameboard.markCell(pos, mark);
+    if (marked === true) {
+        let result = controller.gameOver(gameboard.getBoard());
+        console.log(result);
+        console.log(gameboard.getBoard())
+    } else {
+        console.log("Celda ya utilizada, busca otra");
+    };
+};
 
+const player1 = player("X");
+const player2 = player("O");
 
-
-
-
-//comprobar game over, buscar líneas de 3 X ó O
+checkGame(0, player1.marker);
+checkGame(1, player1.marker);
+checkGame(2, player2.marker);
+checkGame(3, player2.marker);
+checkGame(4, player2.marker);
+checkGame(5, player1.marker);
+checkGame(6, player2.marker); //aquí debería acabar el juego
+checkGame(7, player1.marker);
+checkGame(8, player1.marker);
