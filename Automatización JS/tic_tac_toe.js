@@ -43,15 +43,33 @@ const controller = (() => {
     };
 
     const gameActive = () => active;
-    return {gameOver, gameActive};
+
+    const tie = (board) => {
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === "") {
+                return false;
+            }
+        };
+        return true;
+    };
+
+    const endGame = (state) => {
+        active = state;
+    };
+    return {gameOver, gameActive, tie, endGame};
 })();
 
 function checkGame(pos, mark) {
-    const state = controller.gameActive();
-    if (state === true) {
+    const stateActive = controller.gameActive();
+    if (stateActive === true) {
         const marked = gameboard.markCell(pos, mark);
         if (marked === true) {
             let result = controller.gameOver(gameboard.getBoard());
+            const empate = controller.tie(gameboard.getBoard());
+            if (empate === true) {
+                controller.endGame(false);
+                console.log("EMPATE");
+            };
             console.log(result);
             console.log(gameboard.getBoard())
         } else {
@@ -71,6 +89,7 @@ checkGame(2, player2.marker);
 checkGame(3, player2.marker);
 checkGame(4, player2.marker);
 checkGame(5, player1.marker);
-checkGame(6, player2.marker); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
-checkGame(7, player1.marker);
+checkGame(6, player1.marker); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
+checkGame(7, player2.marker);
 checkGame(8, player1.marker);
+checkGame(9, player1.marker);
