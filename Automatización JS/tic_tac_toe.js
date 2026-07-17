@@ -1,18 +1,27 @@
 const Gameboard = (() => {
     let board = ["", "", "", "", "", "", "", "", ""];
     const markCell = (index, mark) => {
+        let result;
         if (board[index] === "") {
             board[index] = mark;
+            result = true;
         } else {
-            console.log("Celda ya utilizada");
+            result = false;
         }
+        return result;
     };
     const getGameboard = () => board;
     return {markCell, getGameboard};
 })();
 
-Gameboard.markCell(0, "X");
-Gameboard.getGameboard();
+const marked = Gameboard.markCell(0, "X");
+if (marked === true) {
+    Gameboard.getGameboard();
+} else {
+    console.log("Celda ya utilizada, busca otra");
+}
+
+
 
 
 
