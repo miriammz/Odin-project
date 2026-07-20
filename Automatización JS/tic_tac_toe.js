@@ -11,7 +11,14 @@ const gameboard = (() => {
         return result;
     };
     const getBoard = () => board;
-    return {markCell, getBoard};
+
+    const emptyCells = () => {
+        let indices = board.map((value, index) => index);
+        let indicesVacios = indices.filter((index) => board[index] === "");
+        let finalIndex = indicesVacios[Math.trunc(Math.random()*indicesVacios.length)];
+        return finalIndex;
+    };
+    return {markCell, getBoard, emptyCells};
 })();
 
 const player = (marker) => {
@@ -75,11 +82,12 @@ const turn = (() => {
     return {getPlayer, changePlayer};
 })();
 
-function checkGame(pos) {
+function checkGame() {
     const stateActive = controller.gameActive();
+    let empty = gameboard.emptyCells();
     const mark = turn.getPlayer().marker;
     if (stateActive === true) {
-        const marked = gameboard.markCell(pos, mark);
+        const marked = gameboard.markCell(empty, mark);
         if (marked === true) {
             let result = controller.gameOver(gameboard.getBoard());
             const empate = controller.tie(gameboard.getBoard());
@@ -98,13 +106,13 @@ function checkGame(pos) {
     };
 };
 
-checkGame(0);
-checkGame(1);
-checkGame(2);
-checkGame(3);
-checkGame(4);
-checkGame(5);
-checkGame(6); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
-checkGame(7);
-checkGame(8);
-checkGame(9);
+checkGame();
+checkGame();
+checkGame();
+checkGame();
+checkGame();
+checkGame();
+checkGame(); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
+checkGame();
+checkGame();
+checkGame();
