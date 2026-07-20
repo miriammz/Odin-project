@@ -90,6 +90,9 @@ function checkGame() {
         const marked = gameboard.markCell(empty, mark);
         if (marked === true) {
             let result = controller.gameOver(gameboard.getBoard());
+            if (result === true) {
+                console.log("GANADOR: " + mark);
+            }
             const empate = controller.tie(gameboard.getBoard());
             if (empate === true) {
                 controller.endGame(false);
@@ -106,13 +109,6 @@ function checkGame() {
     };
 };
 
-checkGame();
-checkGame();
-checkGame();
-checkGame();
-checkGame();
-checkGame();
-checkGame(); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
-checkGame();
-checkGame();
-checkGame();
+while (controller.gameActive()) {
+    checkGame(gameboard.emptyCells());
+}
