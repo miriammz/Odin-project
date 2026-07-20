@@ -59,8 +59,25 @@ const controller = (() => {
     return {gameOver, gameActive, tie, endGame};
 })();
 
-function checkGame(pos, mark) {
+const turn = (() => {
+    const player1 = player("X");
+    const player2 = player("O");
+    let jugador = player1;
+    const getPlayer = () => jugador;
+    const changePlayer = () => {
+        if (jugador === player1) {
+            jugador = player2;
+        } else{
+            jugador = player1;
+        };
+        return jugador;
+    };
+    return {getPlayer, changePlayer};
+})();
+
+function checkGame(pos) {
     const stateActive = controller.gameActive();
+    const mark = turn.getPlayer().marker;
     if (stateActive === true) {
         const marked = gameboard.markCell(pos, mark);
         if (marked === true) {
@@ -70,6 +87,7 @@ function checkGame(pos, mark) {
                 controller.endGame(false);
                 console.log("EMPATE");
             };
+            let turnPlayer = turn.changePlayer(); //cambio de jugador
             console.log(result);
             console.log(gameboard.getBoard())
         } else {
@@ -80,16 +98,13 @@ function checkGame(pos, mark) {
     };
 };
 
-const player1 = player("X");
-const player2 = player("O");
-
-checkGame(0, player1.marker);
-checkGame(1, player1.marker);
-checkGame(2, player2.marker);
-checkGame(3, player2.marker);
-checkGame(4, player2.marker);
-checkGame(5, player1.marker);
-checkGame(6, player1.marker); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
-checkGame(7, player2.marker);
-checkGame(8, player1.marker);
-checkGame(9, player1.marker);
+checkGame(0);
+checkGame(1);
+checkGame(2);
+checkGame(3);
+checkGame(4);
+checkGame(5);
+checkGame(6); //aquí acaba el juego, las dos líneas siguientes ya no rellenan el tablero
+checkGame(7);
+checkGame(8);
+checkGame(9);
