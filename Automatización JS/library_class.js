@@ -6,6 +6,10 @@ class Book {
         this.isRead = isRead;
         this.id = crypto.randomUUID();
     }
+
+    info() {
+        return (`${this.title} por ${this.author}, ${this.numPages} páginas, ${this.isRead}, id: ${this.id}`);
+    }
 };
 
 //todos los libros se van a almacenar en este array
@@ -23,10 +27,10 @@ addBookToLibrary("Harry Potter", "J.K. Rowling", 300, "leído");
 addBookToLibrary("El triángulo de hielo", "Marcos Nieto", 520, "leído");
 addBookToLibrary("El juego de Ender", "Orson Scott Card", 400, "no leído todavía");
 
-function libro(myLibrary) {
+function libreria(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
-        console.log(`${myLibrary[i].title} por ${myLibrary[i].author}, ${myLibrary[i].numPages} páginas, ${myLibrary[i].isRead}, id: ${myLibrary[i].id}`);
+        console.log(myLibrary[i].info());
     }
 };
 
-libro(myLibrary);
+libreria(myLibrary);
