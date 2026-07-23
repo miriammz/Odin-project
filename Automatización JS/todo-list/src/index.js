@@ -21,25 +21,40 @@ function loadProjects() {
     });
 }
 
-let list1 = new Project("Comprar");
-list1.addTask("pan", "integral", "hoy", "alta", false);
-list1.addTask("leche", "entera", "mañana", "media", false);
-list1.addTask("huevos", "camperos", "hoy", "alta", false);
-list1.addTask("fruta", "manzanas", "lunes", "baja", false);
-const verdura = list1.addTask("verdura", "lechuga", "martes", "media", false);
+let projects = loadProjects();
 
-let list2 = new Project("Maleta");
-list2.addTask("vestidos", "cortos", "jueves", "alta", false);
-list2.addTask("bañadores", "cuatro", "viernes", "alta", false);
-list2.addTask("neceser", "cosas de baño", "jueves", "media", false);
+if(projects.length === 0) {
+    const list1 = new Project("Comprar");
+    list1.addTask("pan", "integral", "hoy", "alta", false);
+    list1.addTask("leche", "entera", "mañana", "media", false);
+    list1.addTask("huevos", "camperos", "hoy", "alta", false);
+    list1.addTask("fruta", "manzanas", "lunes", "baja", false);
+    list1.addTask("verdura", "lechuga", "martes", "media", false);
 
-let projects = [];
-projects.push(list1, list2);
-saveProjects(projects);
+    const list2 = new Project("Maleta");
+    list2.addTask("vestidos", "cortos", "jueves", "alta", false);
+    list2.addTask("bañadores", "cuatro", "viernes", "alta", false);
+    list2.addTask("neceser", "cosas de baño", "jueves", "media", false);
 
-const proyectosCargados = loadProjects();
-console.log(proyectosCargados);
-console.log(proyectosCargados[0].listTitles()); // "Comprar"
-console.log(proyectosCargados[0].collection[0].getList()); // "pan"
+    projects.push(list1, list2);
+    saveProjects(projects);
+}
 
-document.body.textContent = proyectosCargados.map(p => p.listTitles()).join(" | ");
+//console.log(projects);
+//console.log(projects[0].listTitles()); // "Comprar"
+//console.log(projects[0].collection[0].getList()); // "pan"
+
+// Añadir "toalla" solo si no existe ya
+const toallaExiste = projects[1].collection.some(task => task.title === "toalla");
+if (!toallaExiste) {
+    projects[1].addTask("toalla", "grande", "viernes", "media", false);
+    saveProjects(projects);
+}
+
+// Eliminar "verdura" buscándola por título, no por índice fijo
+const verdura = projects[0].collection.find(task => task.title === "verdura");
+if (verdura) {
+    projects[0].removeTask(verdura.id);
+    saveProjects(projects);
+}
+document.body.textContent = projects.map(p => p.listTitles()).join(" | ");
