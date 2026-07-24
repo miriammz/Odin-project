@@ -57,4 +57,10 @@ if (verdura) {
     projects[0].removeTask(verdura.id);
     saveProjects(projects);
 }
+
+const task = projects[0].collection.find(t => t.title === "pan");
+task.editTask({priority: "media"});
+saveProjects(projects);
+console.log(projects[0].collection.find(t => t.title === "pan").getList());
+
 document.body.textContent = projects.map(p => p.listTitles()).join(" | ");

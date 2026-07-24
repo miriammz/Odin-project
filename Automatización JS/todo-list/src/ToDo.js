@@ -24,4 +24,12 @@ export class ToDo {
     completeTask() {
         this.isDone = true;
     }
+
+    //tarea.editTask({description: "descripción nueva", priority: "baja"});
+    editTask(changes) {
+        const allowedFields = ["title", "description", "dueDate", "priority"];
+
+        Object.keys(changes).filter(key => allowedFields.includes(key)).forEach(key => this[key] = changes[key]);
+        return this;
+    }
 }
