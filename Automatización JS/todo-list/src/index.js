@@ -21,6 +21,17 @@ function loadProjects() {
     });
 }
 
+function deleteProject(projects, id) {
+    return projects.filter(project => project.id !== id);
+}
+
+function renameProject(projects, id, newName) {
+    const project = projects.find(task => task.id === id);
+    if (project) {
+        project.name = newName;
+    }
+}
+
 let projects = loadProjects();
 
 if(projects.length === 0) {
@@ -40,10 +51,6 @@ if(projects.length === 0) {
     saveProjects(projects);
 }
 
-//console.log(projects);
-//console.log(projects[0].listTitles()); // "Comprar"
-//console.log(projects[0].collection[0].getList()); // "pan"
-
 // Añadir "toalla" solo si no existe ya
 const toallaExiste = projects[1].collection.some(task => task.title === "toalla");
 if (!toallaExiste) {
@@ -52,23 +59,48 @@ if (!toallaExiste) {
 }
 
 // Eliminar "verdura" buscándola por título, no por índice fijo
-const verdura = projects[0].collection.find(task => task.title === "verdura");
-if (verdura) {
-    projects[0].removeTask(verdura.id);
+const comprar = projects.find(p => p.name === "Comprar");
+if (comprar) {
+    const verdura = projects[0].collection.find(task => task.title === "verdura");
+    if (verdura) {
+        projects[0].removeTask(verdura.id);
+        saveProjects(projects);
+    }
+}
+
+const pan = comprar?.collection.find(t => t.title === "pan");
+if (pan) {
+    pan.editTask({priority: "media"});
+}
+if (pan && pan.checklist.length === 0) {
+    const item1 = pan.addChecklistItem("harina");
+    const item2 = pan.addChecklistItem("levadura");
+    pan.toggleChecklistItem(item1.id);
+    pan.toggleChecklistItem(item2.id);
+    saveProjects(projects);
+}
+console.log(pan.checklist)
+
+//creamos un projecto nuevo para las pruebas de renombrado y borrado de projectos para que no interfieran con los otros
+if (!projects.some(p => p.name === "Prueba" || p.name === "Prueba renombrada")) {
+    const prueba = new Project("Prueba");
+    projects.push(prueba);
     saveProjects(projects);
 }
 
-const task = projects[0].collection.find(t => t.title === "pan");
-if (task && task.checklist.length === 0) {
-    const item1 = task.addChecklistItem("harina");
-    const item2 = task.addChecklistItem("levadura");
-    task.toggleChecklistItem(item1.id);
-    task.toggleChecklistItem(item2.id);
+const prueba = projects.find(p => p.name === "Prueba");
+if (prueba) {
+    renameProject(projects, prueba.id, "Prueba renombrada");
     saveProjects(projects);
 }
-console.log(task.checklist)
-task.editTask({priority: "media"});
+console.log(projects);
+
+const pruebaRenombrada = projects.find(p => p.name ==="Prueba renombrada");
+if (pruebaRenombrada) {
+    projects = deleteProject(projects, pruebaRenombrada.id);
+    saveProjects(projects);
+}
 saveProjects(projects);
-console.log(projects[0].collection.find(t => t.title === "pan").getList());
+console.log(projects);
 
 document.body.textContent = projects.map(p => p.listTitles()).join(" | ");
