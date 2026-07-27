@@ -7,6 +7,7 @@ export class ToDo {
         this.isDone = isDone;
         this.notes = null;
         this.id = crypto.randomUUID();
+        this.checklist = [];
     }
 
     getList() {
@@ -21,11 +22,20 @@ export class ToDo {
         this.notes = notes;
     }
 
-    completeTask() {
-        this.isDone = true;
+    addChecklistItem(text) {
+        let object = {id: crypto.randomUUID(), texto: text, isDone: false};
+        this.checklist.push(object);
+        return object;
     }
 
-    //tarea.editTask({description: "descripción nueva", priority: "baja"});
+    toggleChecklistItem(id) {
+        const item = this.checklist.find(task => task.id === id);
+        if (item) {
+            item.isDone = !item.isDone;
+        }
+        return item;
+    }
+
     editTask(changes) {
         const allowedFields = ["title", "description", "dueDate", "priority"];
 

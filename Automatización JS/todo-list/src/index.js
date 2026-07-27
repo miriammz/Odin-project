@@ -59,6 +59,14 @@ if (verdura) {
 }
 
 const task = projects[0].collection.find(t => t.title === "pan");
+if (task && task.checklist.length === 0) {
+    const item1 = task.addChecklistItem("harina");
+    const item2 = task.addChecklistItem("levadura");
+    task.toggleChecklistItem(item1.id);
+    task.toggleChecklistItem(item2.id);
+    saveProjects(projects);
+}
+console.log(task.checklist)
 task.editTask({priority: "media"});
 saveProjects(projects);
 console.log(projects[0].collection.find(t => t.title === "pan").getList());
