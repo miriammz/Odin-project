@@ -36,13 +36,23 @@ async function handleSearch(event) {
     resultSection.hidden = true;
     errorMessage.hidden = true;
     const data = await getData(location);
-    console.log(data);
     loading.hidden = true;
 
     if (!data) {
         errorMessage.textContent = "No se pudo obtener el clima para esa ubicación";
         errorMessage.hidden = false;
+    } else {
+        displayWeather(data);
     }
+}
+
+function displayWeather(data) {
+    document.querySelector('#location').textContent = data.location;
+    document.querySelector('#temperature').textContent = data.temperature;
+    document.querySelector('#conditions').textContent = data.conditions;
+    document.querySelector('#feelslike').textContent = data.feelslike;
+    document.querySelector('#icon').textContent = data.icon;
+    resultSection.hidden = false;
 }
 
 //getData("london");
