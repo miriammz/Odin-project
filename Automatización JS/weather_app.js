@@ -19,6 +19,30 @@ async function getData(location) {
         return;
     }
     const newData = {"location": response.resolvedAddress, "temperature": response.currentConditions.temp, "conditions": response.currentConditions.conditions, "feelslike": response.currentConditions.feelslike, "icon": response.currentConditions.icon};
-    console.log(newData);
+    return newData;
 };
-getData("london");
+
+const form = document.querySelector('#weather-form');
+const loading = document.querySelector('#loading');
+const resultSection = document.querySelector('#weather-result');
+const errorMessage = document.querySelector('#error-message');
+
+form.addEventListener('submit', handleSearch);
+
+async function handleSearch(event) {
+    event.preventDefault();
+    const location = event.target.elements.location.value;
+    loading.hidden = false;
+    resultSection.hidden = true;
+    errorMessage.hidden = true;
+    const data = await getData(location);
+    console.log(data);
+    loading.hidden = true;
+
+    if (!data) {
+        errorMessage.textContent = "No se pudo obtener el clima para esa ubicación";
+        errorMessage.hidden = false;
+    }
+}
+
+//getData("london");

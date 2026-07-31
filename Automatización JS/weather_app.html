@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Weather App</h1>
+    </header>
+
+    <main>
+        <!-- Formulario de búsqueda -->
+        <form id="weather-form">
+            <label for="location-input">Ubicación:</label>
+            <input type="text" id="location-input" name="location" placeholder="Ej: london, madrid..." required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <!-- Indicador de carga (oculto por defecto) -->
+        <p id="loading" hidden>Cargando...</p>
+
+        <!-- Botón para cambiar unidad de temperatura -->
+        <button id="unit-toggle" type="button" hidden>Cambiar a °C / °F</button>
+
+        <!-- Resultado del clima (oculto hasta tener datos) -->
+        <section id="weather-result" hidden>
+            <h2 id="location">-</h2>
+            <img id="icon" src="" alt="" hidden>
+            <p id="conditions">-</p>
+            <p>Temperatura: <span id="temperature">-</span></p>
+            <p>Sensación térmica: <span id="feelslike">-</span></p>
+        </section>
+
+        <!-- Mensaje de error -->
+        <p id="error-message" hidden></p>
+    </main>
+
+    <script src="weather_app.js"></script>
+</body>
+</html>
