@@ -6,9 +6,19 @@ async function getWeather(location) {
             throw new Error(`Error ${response.status}: no se pudo obtener el clima`);
         }
         const weatherData = await response.json();
-        console.log(weatherData);
+        return weatherData;
     } catch (error) {
         console.log(error);
     }  
 };
-getWeather("london");
+
+async function getData(location) {
+    const response = await getWeather(location);
+    if (!response) {
+        console.log("No se pudieron obtener los datos del clima");
+        return;
+    }
+    const newData = {"location": response.resolvedAddress, "temperature": response.currentConditions.temp, "conditions": response.currentConditions.conditions, "feelslike": response.currentConditions.feelslike, "icon": response.currentConditions.icon};
+    console.log(newData);
+};
+getData("london");
