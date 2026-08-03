@@ -1,4 +1,4 @@
-const {capitalize, reverseString, calculator} = require('./functions_testing');
+const {capitalize, reverseString, calculator, cifradoCesar} = require('./functions_testing');
 test('primera letra mayúscula', () => {
     expect(capitalize("casa")).toBe("Casa");
 });
@@ -20,4 +20,8 @@ describe('calculator', () => {
     test('división', () => {
         expect(calculator.divide(3,1)).toBe(3);
     });
+});
+
+test('cifrado César', () => {
+    expect(cifradoCesar("cAsa,", 3)).toBe("fDvd,");
 });
