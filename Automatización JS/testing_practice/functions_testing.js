@@ -31,7 +31,6 @@ function cifradoCesar(string, desplazamiento) {
 
     //A=65, Z=90, a=97, z=122
     for (let i = 0; i < string.length; i++) {
-        console.log(string[i].charCodeAt(0))
         if (string[i].charCodeAt(0) >= 97 && string[i].charCodeAt(0) <= 122) {
             //-97 la lleva a un rango 0-25, %26 hace que dé la vuelta al llegar a z y +97 la devuelve a su código real
             codigo_desplazado = String.fromCharCode(((string[i].charCodeAt(0) - 97 + desplazamiento) % 26) + 97);
@@ -47,4 +46,12 @@ function cifradoCesar(string, desplazamiento) {
     }
     return string_final;
 };
-module.exports = {capitalize, reverseString, calculator, cifradoCesar};
+
+function analyzeArray(array) {
+    let min = Math.min(...array);
+    let max = Math.max(...array);
+    let average = (array.reduce((acumulador, valor) => acumulador + valor, 0))/array.length;
+    let length = array.length;
+    return {average, min, max, length};
+};
+module.exports = {capitalize, reverseString, calculator, cifradoCesar, analyzeArray};

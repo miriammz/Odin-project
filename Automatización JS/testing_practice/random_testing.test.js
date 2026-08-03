@@ -1,4 +1,4 @@
-const {capitalize, reverseString, calculator, cifradoCesar} = require('./functions_testing');
+const {capitalize, reverseString, calculator, cifradoCesar, analyzeArray} = require('./functions_testing');
 test('primera letra mayúscula', () => {
     expect(capitalize("casa")).toBe("Casa");
 });
@@ -23,5 +23,9 @@ describe('calculator', () => {
 });
 
 test('cifrado César', () => {
-    expect(cifradoCesar("cAsa,", 3)).toBe("fDvd,");
+    expect(cifradoCesar("Hello, World!", 3)).toBe("Khoor, Zruog!");
+});
+
+test('analyzeArray', () => {
+    expect(analyzeArray([1,4,8,2,5])).toEqual({average: 4, min: 1, max: 8, length: 5});
 });
