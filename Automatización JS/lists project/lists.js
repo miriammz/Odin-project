@@ -25,4 +25,16 @@ class LinkedList {
         }
         this.length++;
     }
+
+    prepend(value) {
+        let newNode = new Node(value);
+        if (this.length === 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.nextNode = this.head;
+            this.head = newNode;
+        }
+        this.length++;
+    }
 }
