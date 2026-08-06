@@ -125,4 +125,22 @@ class LinkedList {
         }
         return -1;
     }
+
+    toString() {
+        let string;
+        if (this.length === 0) {
+            string = '';
+        } else {
+            let currentNode = this.headProp;
+            let value = 0;
+            string = '';
+            for (let i = 0; i < this.length; i++) {
+                value = currentNode.value;
+                string += `( ${value} ) -> `;
+                currentNode = currentNode.nextNode;
+            }
+            string = string + "null";
+        }
+        return string;
+    }
 }
