@@ -1,12 +1,7 @@
-class Node {
-    constructor(value = null, nextNode = null) {
-        this.value = value;
-        this.nextNode = nextNode;
-    }
-}
+import {Node} from "./node_lists.js";
 
 //representará la lista completa
-class LinkedList {
+export class LinkedList {
     constructor() {
         this.headProp = null;
         this.tailProp = null;
@@ -95,7 +90,7 @@ class LinkedList {
             value = this.headProp.value;
             let newHeadNode = this.headProp.nextNode;
             this.headProp = newHeadNode;
-            this.length = this.length - 1;
+            this.length--;
         }
         return value;
     }
@@ -147,7 +142,6 @@ class LinkedList {
     //insertar un nuevo nodo con el valor dado en una posición concreta
     insertAt(index, ...values) {
         for (const value of values) {
-            let j = 0;
             if (index < 0 || index > this.length) {
             throw new RangeError("Index out of bounds");
             } else if (index === 0) {
@@ -167,17 +161,24 @@ class LinkedList {
             index++;
         }
     }
+
+    removeAt(index) {
+        if (index < 0 || index >= this.length) {
+            throw new RangeError("Index out of bounds");
+        } else if (index === 0) {
+            this.pop();
+        } else {
+            let currentNode = this.headProp;
+            for (let i = 0; i < index - 1; i++) {
+                currentNode = currentNode.nextNode;
+            }
+            let prevNode = currentNode;
+            currentNode = currentNode.nextNode.nextNode;
+            prevNode.nextNode = currentNode;
+            this.length--;
+            if (index === this.length) {
+                this.tailProp = prevNode;
+            }
+        }
+    }
 }
-
-const list = new LinkedList();
-list.append("dog");
-list.append("cat");
-list.append("parrot");
-list.append("hamster");
-list.append("snake");
-list.append("turtle");
-
-console.log(list.toString());
-
-list.insertAt(2, "horse", "otter");
-console.log(list.toString());
