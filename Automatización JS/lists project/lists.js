@@ -99,4 +99,30 @@ class LinkedList {
         }
         return value;
     }
+
+    //devuelve true/false si el valor dado está o no en la lista
+    contains(value) {
+        let index = this.findIndex(value);
+        if (index === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //devuelve el índice del nodo para el valor dado
+    //si el valor no está, devuelve -1
+    //si hay varios nodos con el mismo valor, devuelve el primero que encuentra
+    findIndex(value) {
+        let index = 0;
+        let currentNode = this.headProp;
+        while (currentNode !== null) {
+            if (value === currentNode.value) {
+                return index;
+            }
+            currentNode = currentNode.nextNode;
+            index++;
+        }
+        return -1;
+    }
 }
