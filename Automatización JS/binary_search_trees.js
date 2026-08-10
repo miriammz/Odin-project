@@ -65,6 +65,40 @@ class Tree {
     insert(value) {
         this.root = this.#insertNode(this.root, value);
     }
+
+    #findMin(node) {
+        if (node.nodeLeft === null) {
+            return node;
+        } else {
+            return this.#findMin(node.nodeLeft);
+        }
+    }
+
+    #deleteNode(node, value) {
+        if (node === null) {
+            return node;
+        } else if (node.data > value) {
+            node.nodeLeft = this.#deleteNode(node.nodeLeft, value);
+            return node;
+        } else if (node.data < value) {
+            node.nodeRight = this.#deleteNode(node.nodeRight, value);
+            return node;
+        } else if (node.data === value) {
+            if (node.nodeLeft === null && node.nodeRight === null) {
+                return null;
+            } else if (node.nodeLeft === null || node.nodeRight === null) {
+                return node.nodeLeft || node.nodeRight;
+            } else {
+                node.data = (this.#findMin(node.nodeRight)).data;
+                node.nodeRight = this.#deleteNode(node.nodeRight, node.data);
+                return node;
+            }
+        }
+    }
+
+    deleteItem(value) {
+        this.root = this.#deleteNode(this.root, value);
+    }
 }
 
 let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
