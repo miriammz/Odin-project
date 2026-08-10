@@ -44,7 +44,6 @@ class HashMap {
             this.cont++;
             if (this.loadFactor * this.capacity < this.cont) {
                 this.grow();
-                console.log("aumentar capacidad")
             }
             console.log(this.array)
         }
@@ -86,6 +85,42 @@ class HashMap {
         return this.cont;
     }
 
+    clear() {
+        this.capacity = 16;
+        this.array = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+        this.cont = 0;
+    }
+
+    keys() {
+        let result = [];
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                result.push(this.array[i][j][0]);
+            }
+        }
+        return result;
+    }
+
+    values() {
+        let result = [];
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                result.push(this.array[i][j][1]);
+            }
+        }
+        return result;
+    }
+
+    entries() {
+        let result = [];
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                result.push([this.array[i][j][0],this.array[i][j][1]]);
+            }
+        }
+        return result;
+    }
+
 }
 
 const test = new HashMap();
@@ -103,3 +138,11 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 test.set('otter', 'brown')
 test.set('shirt', 'black')
+console.log(test.length())
+console.log(test.get('hat'))
+console.log(test.has('otter'))
+console.log(test.remove('frog'))
+console.log(test.length())
+console .log(test.keys())
+console .log(test.values())
+console .log(test.entries())
