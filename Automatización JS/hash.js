@@ -45,7 +45,6 @@ class HashMap {
             if (this.loadFactor * this.capacity < this.cont) {
                 this.grow();
             }
-            console.log(this.array)
         }
     }
 
@@ -146,3 +145,56 @@ console.log(test.length())
 console .log(test.keys())
 console .log(test.values())
 console .log(test.entries())
+
+
+////////////EXTRA CREDIT///////////
+class HashSet {
+    constructor() {
+        this.map = new HashMap();
+    }
+
+    setKey(key) {
+        this.map.set(key, null);
+    }
+
+    hasKey(key) {
+        return this.map.has(key);
+    }
+
+    removeKey(key) {
+        return this.map.remove(key);
+    }
+
+    lengthKey() {
+        return this.map.length();
+    }
+
+    clearKey() {
+        return this.map.clear();
+    }
+
+    keysKey() {
+        return this.map.keys();
+    }
+}
+
+let prueba = new HashSet();
+prueba.setKey("apple", "red");
+prueba.setKey('banana', 'yellow')
+prueba.setKey('carrot', 'orange')
+prueba.setKey('dog', 'brown')
+prueba.setKey('elephant', 'gray')
+prueba.setKey('frog', 'green')
+prueba.setKey('grape', 'purple')
+prueba.setKey('hat', 'black')
+prueba.setKey('ice cream', 'white')
+prueba.setKey('jacket', 'blue')
+prueba.setKey('kite', 'pink')
+prueba.setKey('lion', 'golden')
+prueba.setKey('otter', 'brown')
+prueba.setKey('shirt', 'black')
+console.log(prueba.lengthKey())
+console.log(prueba.hasKey('otter'))
+console.log(prueba.removeKey('frog'))
+console.log(prueba.lengthKey())
+console .log(prueba.keysKey())
