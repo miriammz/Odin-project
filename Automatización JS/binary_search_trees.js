@@ -46,6 +46,25 @@ class Tree {
     includes(value) {
         return this.#includesNode(this.root, value);
     }
+
+    #insertNode(node, value) {
+        if (node === null) {
+            let newNode = new Node(value);
+            return newNode;
+        } else if (node.data === value) {
+            return node;
+        } else if (node.data > value) {
+            node.nodeLeft = this.#insertNode(node.nodeLeft, value);
+            return node;
+        } else if (node.data < value) {
+            node.nodeRight = this.#insertNode(node.nodeRight, value);
+            return node;
+        }
+    }
+
+    insert(value) {
+        this.root = this.#insertNode(this.root, value);
+    }
 }
 
 let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
