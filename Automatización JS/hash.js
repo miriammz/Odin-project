@@ -70,6 +70,22 @@ class HashMap {
         return false;
     }
 
+    remove(key) {
+        let hashed = this.hash(key);
+        for (let i = 0; i < this.array[hashed].length; i++) { //el bucket puede tener varios pares por colisiones
+            if (this.array[hashed][i][0] === key) {
+                this.array[hashed].splice(i, 1);
+                this.cont--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    length() {
+        return this.cont;
+    }
+
 }
 
 const test = new HashMap();
