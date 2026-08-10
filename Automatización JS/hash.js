@@ -50,6 +50,26 @@ class HashMap {
         }
     }
 
+    get(key) {
+        let hashed = this.hash(key);
+        for (let i = 0; i < this.array[hashed].length; i++) { //el bucket puede tener varios pares por colisiones
+            if (this.array[hashed][i][0] === key) {
+                return this.array[hashed][i][1];
+            }
+        }
+        return null;
+    }
+
+    has(key) {
+        let hashed = this.hash(key);
+        for (let i = 0; i < this.array[hashed].length; i++) { //el bucket puede tener varios pares por colisiones
+            if (this.array[hashed][i][0] === key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
 const test = new HashMap();
