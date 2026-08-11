@@ -99,8 +99,32 @@ class Tree {
     deleteItem(value) {
         this.root = this.#deleteNode(this.root, value);
     }
+
+    levelOrderForEach(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Callback is required');
+        } else {
+            let queue = [];
+            let nodeValue;
+            queue.push(this.root);
+            while (queue.length > 0) {
+                nodeValue = queue.shift();
+                callback(nodeValue.data);
+                if (nodeValue.nodeLeft !== null) {
+                    queue.push(nodeValue.nodeLeft);
+                }
+                if (nodeValue.nodeRight !== null) {
+                    queue.push(nodeValue.nodeRight);
+                }
+            }
+        } 
+    }
 }
 
 let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 console.log(tree.root);
 console.log(tree.includes(67))
+tree.levelOrderForEach(value => console.log(value))
+tree.deleteItem(67)
+tree.insert(52)
+tree.levelOrderForEach(value => console.log(value))
