@@ -119,6 +119,63 @@ class Tree {
             }
         } 
     }
+
+    #inOrderNode(node, callback) {
+        if (node === null) {
+            return;
+        } else {
+            this.#inOrderNode(node.nodeLeft, callback);
+            callback(node.data);
+            this.#inOrderNode(node.nodeRight, callback);
+        }
+    }
+
+    //orden: izquierda, nodo actual, derecha
+    inOrderForEach(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Callback is required');
+        } else {
+            this.#inOrderNode(this.root, callback);
+        }
+    }
+
+    #preOrderNode(node, callback) {
+        if (node === null) {
+            return;
+        } else {
+            callback(node.data);
+            this.#preOrderNode(node.nodeLeft, callback);
+            this.#preOrderNode(node.nodeRight, callback);
+        }
+    }
+
+    //orden: nodo actual, izquierda, derecha
+    preOrderForEach(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Callback is required');
+        } else {
+            this.#preOrderNode(this.root, callback);
+        }
+    }
+
+    #postOrderNode(node, callback) {
+        if (node === null) {
+            return;
+        } else {
+            this.#postOrderNode(node.nodeLeft, callback);
+            this.#postOrderNode(node.nodeRight, callback);
+            callback(node.data);
+        }
+    }
+
+    //orden: izquierda, derecha, nodo actual
+    postOrderForEach(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Callback is required');
+        } else {
+            this.#postOrderNode(this.root, callback);
+        }
+    }
 }
 
 let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
