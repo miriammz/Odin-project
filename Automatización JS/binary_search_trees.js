@@ -254,10 +254,30 @@ class Tree {
     }
 }
 
-let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67]);
 console.log(tree.root);
-console.log(tree.includes(67))
+console.log(tree.isBalanced());
+console.log("level Order");
 tree.levelOrderForEach(value => console.log(value))
-tree.deleteItem(67)
-tree.insert(52)
+console.log("in Order");
+tree.inOrderForEach(value => console.log(value))
+console.log("pre Order");
+tree.preOrderForEach(value => console.log(value))
+console.log("post Order");
+tree.postOrderForEach(value => console.log(value))
+tree.insert(101)
+tree.insert(234)
+tree.insert(522)
+tree.insert(121)
+tree.insert(674)
+console.log(tree.isBalanced());
+tree.rebalance();
+console.log(tree.isBalanced());
+console.log("level Order");
 tree.levelOrderForEach(value => console.log(value))
+console.log("in Order");
+tree.inOrderForEach(value => console.log(value))
+console.log("pre Order");
+tree.preOrderForEach(value => console.log(value))
+console.log("post Order");
+tree.postOrderForEach(value => console.log(value))
