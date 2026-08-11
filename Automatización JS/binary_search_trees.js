@@ -208,8 +208,43 @@ class Tree {
         }
     }
 
-    depth(value) {
+    #depthNode(node, value, count = 0) {
+        if (node === null) {
+            return undefined;
+        } else if (node.data === value) {
+            return count;
+        } else {
+            count++;
+            if (node.data > value) {
+                return this.#depthNode(node.nodeLeft, value, count);
+            } else if (node.data < value) {
+                return this.#depthNode(node.nodeRight, value, count);
+            }
+        }
+    }
 
+    depth(value) {
+        return this.#depthNode(this.root, value);
+    }
+
+    #isBalancedNode(node) {
+        if (node === null) {
+            return true;
+        } else {
+            let left = this.#calculateHeight(node.nodeLeft);
+            let right = this.#calculateHeight(node.nodeRight);
+            if (Math.abs(left - right) > 1) {
+                return false;
+            } else {
+                let childLeft = this.#isBalancedNode(node.nodeLeft);
+                let childRight = this.#isBalancedNode(node.nodeRight);
+                return childLeft && childRight;
+            }
+        }
+    }
+
+    isBalanced() {
+        return this.#isBalancedNode(this.root);
     }
 }
 
