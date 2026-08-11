@@ -176,6 +176,41 @@ class Tree {
             this.#postOrderNode(this.root, callback);
         }
     }
+
+    #findNode(node, value) {
+        if (node === null) {
+            return null;
+        } else if (node.data === value) {
+            return node;
+        } else if (node.data < value) {
+            return this.#findNode(node.nodeRight, value);
+        } else if (node.data > value) {
+            return this.#findNode(node.nodeLeft, value);
+        }
+    }
+
+    #calculateHeight(node) {
+        if (node === null) {
+            return -1;
+        } else {
+            let left = this.#calculateHeight(node.nodeLeft);
+            let right = this.#calculateHeight(node.nodeRight);
+            return 1 + Math.max(left, right);
+        }
+    }
+
+    height(value) {
+        let node = this.#findNode(this.root, value);
+        if (node === null) {
+            return undefined;
+        } else {
+            return this.#calculateHeight(node);
+        }
+    }
+
+    depth(value) {
+
+    }
 }
 
 let tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
