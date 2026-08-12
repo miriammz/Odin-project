@@ -30,3 +30,13 @@ test('tocado', () => {
     gameboard.placeShip(ship, coordinates);
     expect(gameboard.receiveAttack(coord)).toBe(true);
 });
+
+test('agua', () => {
+    let ship = new Ship(4);
+    let coordinates = ['C2', 'D2', 'E2', 'F2'];
+    let coord = 'A2';
+    let gameboard = new Gameboard();
+    gameboard.placeShip(ship, coordinates);
+    expect(gameboard.receiveAttack(coord)).toBe(false);
+    expect(gameboard.fails).toContain(coord);
+});

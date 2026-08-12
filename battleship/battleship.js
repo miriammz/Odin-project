@@ -22,11 +22,25 @@ class Ship {
 class Gameboard {
     constructor() {
         this.shipsLocated = [];
+        this.fails = [];
     }
 
     placeShip(ship, coordinates) {
         this.shipsLocated.push({ship, coordinates});
         return true;
+    }
+
+    receiveAttack(coord) {
+        for (let i = 0; i < this.shipsLocated.length; i++) {
+            for (let j = 0; j < this.shipsLocated[i].coordinates.length; j++) {
+                if (coord === this.shipsLocated[i].coordinates[j]) {
+                    this.shipsLocated[i].ship.hit();
+                    return true;
+                }
+            }
+        }
+        this.fails.push(coord);
+        return false;
     }
 }
 module.exports = {Ship, Gameboard};
