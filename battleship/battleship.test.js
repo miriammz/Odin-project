@@ -1,4 +1,4 @@
-import {Ship, Gameboard} from "./battleship";
+import {Ship, Gameboard, Player} from "./battleship";
 test('barco hundido', () => {
     let ship = new Ship(3);
     ship.hit();
@@ -54,4 +54,9 @@ test('todos los barcos hundidos', () => {
         gameboard.receiveAttack(coord[i]);
     }
     expect(gameboard.shipsSunk()).toBe(true);
+});
+
+test('Player', () => {
+    let human = new Player('human');
+    expect(human.gameboard).toBeInstanceOf(Gameboard);
 });

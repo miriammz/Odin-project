@@ -51,4 +51,11 @@ class Gameboard {
         return this.shipsLocated.every(entry => entry.ship.isSunk()); //mira si todos cumplen una condición
     }
 }
-module.exports = {Ship, Gameboard};
+
+class Player {
+    constructor(typeOfPlayer) {
+        this.gameboard = new Gameboard();
+        this.typeOfPlayer = typeOfPlayer;
+    }
+}
+module.exports = {Ship, Gameboard, Player};
