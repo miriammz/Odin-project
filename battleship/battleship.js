@@ -42,5 +42,13 @@ class Gameboard {
         this.fails.push(coord);
         return false;
     }
+
+    shipsSunk() {
+        let status = [];
+        for (let i = 0; i < this.shipsLocated.length; i++) {
+            status.push(this.shipsLocated[i].ship.isSunk());
+        }
+        return this.shipsLocated.every(entry => entry.ship.isSunk()); //mira si todos cumplen una condición
+    }
 }
 module.exports = {Ship, Gameboard};

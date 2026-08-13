@@ -40,3 +40,18 @@ test('agua', () => {
     expect(gameboard.receiveAttack(coord)).toBe(false);
     expect(gameboard.fails).toContain(coord);
 });
+
+test('todos los barcos hundidos', () => {
+    let ship1 = new Ship(3);
+    let coordinates1 = ['E3', 'E4', 'E5'];
+    let ship2 = new Ship(2);
+    let coordinates2 = ['F2', 'G2'];
+    let coord = ['E3', 'E4', 'E5', 'F2', 'G2'];
+    let gameboard = new Gameboard();
+    gameboard.placeShip(ship1, coordinates1);
+    gameboard.placeShip(ship2, coordinates2);
+    for (let i = 0; i < coord.length; i++) {
+        gameboard.receiveAttack(coord[i]);
+    }
+    expect(gameboard.shipsSunk()).toBe(true);
+});
