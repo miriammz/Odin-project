@@ -60,7 +60,6 @@ class Player {
         const letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
         let coord = `${letras[Math.floor(Math.random()*letras.length)]}${numbers[Math.floor(Math.random()*numbers.length)]}`;
-        console.log(coord);
         if (gameboardRival.tick.includes(coord) || gameboardRival.fails.includes(coord)) {
             return this.computerAttack(gameboardRival);
         } else {
@@ -68,4 +67,4 @@ class Player {
         }
     }
 }
-module.exports = {Ship, Gameboard, Player};
+export {Ship, Gameboard, Player};
