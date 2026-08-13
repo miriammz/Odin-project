@@ -60,3 +60,29 @@ test('Player', () => {
     let human = new Player('human');
     expect(human.gameboard).toBeInstanceOf(Gameboard);
 });
+
+test('almacenar aciertos en array', () => {
+    let ship = new Ship(4);
+    let coordinates = ['C2', 'D2', 'E2', 'F2'];
+    let coord = 'D2';
+    let computer = new Player('computer');
+    computer.gameboard.placeShip(ship, coordinates);
+    expect(computer.gameboard.receiveAttack(coord)).toBe(true);
+    expect(computer.gameboard.tick).toContain(coord);
+});
+
+test('ataque aleatorio del ordenador', () => {
+    let ship = new Ship(4);
+    let coordinates = ['C2', 'D2', 'E2', 'F2'];
+    let computer = new Player('computer');
+    let rival = new Player('human');
+    rival.gameboard.placeShip(ship, coordinates);
+    let tick = rival.gameboard.tick.length;
+    let fails = rival.gameboard.fails.length;
+    let validAttack = computer.computerAttack(rival.gameboard);
+    if (validAttack) {
+        expect(tick + 1).toBe(rival.gameboard.tick.length);
+    } else {
+        expect(fails + 1).toBe(rival.gameboard.fails.length);
+    }
+});
