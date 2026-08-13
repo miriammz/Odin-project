@@ -86,3 +86,15 @@ test('ataque aleatorio del ordenador', () => {
         expect(fails + 1).toBe(rival.gameboard.fails.length);
     }
 });
+
+test('IA casillas adyacentes', () => {
+    let ship = new Ship(4);
+    let coordinates = ['D6', 'E6', 'F6', 'G6'];
+    let computer = new Player('computer');
+    let rival = new Player('human');
+    rival.gameboard.placeShip(ship, coordinates);
+    jest.spyOn(Math, 'random').mockReturnValue(0.5); //devuelve siempre lo mismo para Math.random()
+    expect(computer.computerAttack(rival.gameboard)).toBe(true);
+    expect(coordinates).toContain(computer.lastHit);
+    expect(computer.coordPosibles).toEqual(['E6', 'G6', 'F5', 'F7']);
+});
